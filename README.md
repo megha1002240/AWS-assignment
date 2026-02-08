@@ -1,6 +1,5 @@
 # AWS-assignment
-# task 1
-# Application
+# task 1 Application
 # User Management System using Python and Mysql
 # Tech Stack
 Backend: Python Flask
@@ -17,10 +16,12 @@ pip install -r requirements.txt
 # 4 Run the flask app
 python app.py
 # 5 hit you ip on brower on port 5000
+<img width="1920" height="1008" alt="Screenshot 2026-02-08 163516" src="https://github.com/user-attachments/assets/d584d55a-fdde-454d-8033-bbf12685be92" />
+
 <img width="1920" height="1008" alt="Screenshot 2026-02-08 164022" src="https://github.com/user-attachments/assets/f0e2b4e0-f4b4-4c7c-9e16-da0b2043c783" />
 
 <img width="1920" height="1008" alt="Screenshot 2026-02-08 164028" src="https://github.com/user-attachments/assets/d6636131-7f08-4f7d-8f97-5f09e81f7a62" />
-# output
+
 <img width="1920" height="1008" alt="Screenshot 2026-02-08 164028" src="https://github.com/user-attachments/assets/fe690358-94dc-4196-a059-ae050bb61bd4" />
 
 
@@ -122,5 +123,46 @@ Instagram requests → Instagram server group
 <img width="1920" height="1008" alt="image" src="https://github.com/user-attachments/assets/58e8b7ff-266f-40f1-8b66-ccdc62edf303" />
 
 <img width="1920" height="1008" alt="image" src="https://github.com/user-attachments/assets/b1d130b3-cec8-4b5b-a322-ac46f18211f3" />
+
+# task 7 Troubleshooting Explanation
+## 1. App Not Accessible
+# If the application is not accessible from a browser or client:
+Possible Causes:
+1.EC2 instance is stopped or unreachable.
+2.Security Groups or firewalls are blocking the application port.
+3.Application is not running or crashed.
+4.Wrong IP address or URL being used.
+# Steps to Resolve:
+1.Check EC2 instance status in AWS console.
+2.Verify Security Group allows inbound traffic on required port (e.g., 80, 5000).
+3.Check if the app is running locally on EC2:
+
+curl http://localhost:5000
+4.Ensure the correct IP address or Elastic IP is used for access.
+# 2. Container Running but Port Not Reachable
+# If the Docker container is running but the app is still unreachable:
+Possible Causes:
+1.Incorrect port mapping between host and container.
+2.Host firewall blocking access.
+3.Application inside container not listening on the correct port.
+# Steps to Resolve:
+1.Check running containers and port mapping:
+docker ps
+2.Ensure the format 0.0.0.0:5000->5000/tcp is present.
+3.Test connectivity inside EC2:
+curl http://localhost:5000
+4.Verify host firewall rules and allow the port.
+5.Make sure the containerized app is listening on the expected port.
+# 3. ALB Health Check Failures
+# If the Application Load Balancer shows unhealthy targets:
+Possible Causes:
+1.Health check path is incorrect .
+2.Target port in the target group does not match container port.
+3.Security Group of the EC2 instance does not allow ALB traffic.
+4.Steps to Resolve:
+Verify health check path matches an endpoint that returns HTTP 200.
+Ensure ALB target group port matches the port exposed by the container.
+Check that EC2 security group allows inbound traffic from ALB on the target port.
+
 
 
